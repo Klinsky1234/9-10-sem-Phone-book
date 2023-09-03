@@ -1,5 +1,4 @@
 import text
-from model import Contact
 from model import PhoneBook
 
 
@@ -50,6 +49,7 @@ def show_book(book: PhoneBook, msg: str):
                 + book.max_len("surname")
                 + book.max_len("phone")
                 + book.max_len("comment")
+                + 7
             )
             + "\n"
         )
