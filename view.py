@@ -1,7 +1,8 @@
 import text
+from model import Contact
+from model import PhoneBook
 
 
-# main_menu() - Функция для распечатки нашего меню
 def main_menu():
     for i, item in enumerate(text.menu):
         if i == 0:
@@ -22,14 +23,37 @@ def print_message(msg: str):
     print("=" * len(msg) + "\n")
 
 
-def show_book(book: dict[int, list[str]], msg: str):
+def show_book(book: PhoneBook, msg: str):
     if book:
-        print("\n" + "*" * 63)
-        for i, contact in book.items():
-            print(
-                f"{i:>3}. {contact[0]:<10} {contact[1]:<15} {contact[2]:<10} {contact[3]:<10}"
+        print(
+            "\n"
+            + "*"
+            * (
+                book.max_len("name")
+                + book.max_len("surname")
+                + book.max_len("phone")
+                + book.max_len("comment")
+                + 7
             )
-        print("*" * 63 + "\n")
+        )
+        for i, contact in book.phone_book.items():
+            print(
+                f"{i:>3}. {contact.name:<{book.max_len('name')}}  "
+                f"{contact.surname:<{book.max_len('surname')}}  "
+                f"{contact.phone:<{book.max_len('phone')}}  "
+                f"{contact.comment:<{book.max_len('comment')}}"
+            )
+        print(
+            "*"
+            * (
+                book.max_len("name")
+                + book.max_len("surname")
+                + book.max_len("phone")
+                + book.max_len("comment")
+            )
+            + "\n"
+        )
+
     else:
         print_message(msg)
 
